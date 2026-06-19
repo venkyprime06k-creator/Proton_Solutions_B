@@ -15,7 +15,7 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: CORS_ORIGINS
-        value: "https://your-frontend-vercel.vercel.app,http://localhost:5173"
+        value: "https://proton-solutions-f-8g46.vercel.app/"
       - key: DEFAULT_AI_PROVIDER
         value: groq
       - key: GROQ_API_KEY
