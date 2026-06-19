@@ -319,12 +319,7 @@ async def send_message(
             db_session.commit()
             
             # Send completion details to the frontend
-            yield f"data: {json.dumps({
-                'done': True, 
-                'conversationId': db_conv.id, 
-                'title': db_conv.title, 
-                'messageId': assistant_msg_id
-            })}\n\n"
+            yield f"data: {json.dumps({'done': True, 'conversationId': db_conv.id, 'title': db_conv.title, 'messageId': assistant_msg_id})}\n\n"
             
         except Exception as e:
             db_session.rollback()
