@@ -33,10 +33,18 @@ class Settings:
     
     def __init__(self):
         # Parse CORS origins from environment variable
-        cors_env = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000")
-        if cors_env:
-            # Split by comma and clean up
-            self.cors_origins = [origin.strip() for origin in cors_env.split(",") if origin.strip()]
+        cors_env = os.getenv("CORS_ORIGINS") or os.getenv("CORS_ORIGIN")
+        if not cors_env:
+            cors_env = "https://proton-solutions-f-8g46.vercel.app,http://localhost:5173,http://localhost:3000"
+        
+        # Split by comma and clean up
+        self.cors_origins = [origin.strip() for origin in cors_env.split(",") if origin.strip()]
+        
+        # Ensure our known production domains are present
+        extra_origins = ["https://proton-solutions-f-8g46.vercel.app"]
+        for extra in extra_origins:
+            if extra not in self.cors_origins:
+                self.cors_origins.append(extra)
         
         # Validate required settings
         if not self.database_url:
