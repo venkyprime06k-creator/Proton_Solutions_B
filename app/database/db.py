@@ -6,6 +6,8 @@ from app.config.settings import settings
 
 # Get database URL
 database_url = settings.database_url
+if database_url and database_url.startswith("postgresql://"):
+    database_url = database_url.replace("postgresql://", "postgresql+psycopg://", 1)
 
 # Create engine
 engine = create_engine(
