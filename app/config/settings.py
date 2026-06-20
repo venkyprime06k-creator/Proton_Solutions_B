@@ -2,8 +2,14 @@ import os
 from typing import List
 from dotenv import load_dotenv
 
-# Load .env file
-load_dotenv()
+# Load .env file from multiple potential locations for robustness
+import pathlib
+current_file_path = pathlib.Path(__file__).resolve()
+backend_env_path = current_file_path.parent.parent.parent / '.env'
+if backend_env_path.exists():
+    load_dotenv(dotenv_path=backend_env_path)
+else:
+    load_dotenv()
 
 class Settings:
     """Simple settings class without Pydantic parsing issues"""
